@@ -1,0 +1,5 @@
+# Architecture
+
+The system is a small monorepo. `frontend/` owns the Next.js product UI; `backend/` owns the FastAPI API and domain logic. PostgreSQL stores relational metadata and persisted chunk vectors, with pgvector used for similarity search. Redis brokers Celery experiment jobs. RustFS provides S3-compatible storage for original uploads; extracted document text and searchable chunks are stored in PostgreSQL. Phoenix receives OpenTelemetry spans, and MLflow records experiment parameters and metrics when those services are enabled.
+
+Uploads are extracted into document text and indexed as chunks with lexical and vector representations. Experiments run the configured retrieval, reranking, and generation pipeline, save per-example results, and emit trace spans. OpenAI, Anthropic, Google Gemini, and Ollama providers are supported; user-managed provider credentials are encrypted at rest. The system prompt directs external generators to treat retrieved content as untrusted data. Evaluation includes retrieval metrics and explicitly labeled proxy metrics, with RAGAS available as an optional evaluator.

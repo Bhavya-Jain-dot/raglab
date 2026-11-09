@@ -1,0 +1,8 @@
+.env
+.next/
+node_modules/
+__pycache__/
+.venv/
+*.py[cod]
+backend/.test-deps/
+backend/.test-tmp/
